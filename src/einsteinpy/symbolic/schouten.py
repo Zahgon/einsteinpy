@@ -62,16 +62,7 @@ class SchoutenTensor(BaseRelativityTensor):
             Raised when the dimension of the tensor is less than 3
 
         """
-        if metric.dims >= 3:
-            t_ricci = RicciTensor.from_metric(metric)
-            r_scalar = RicciScalar.from_riccitensor(t_ricci, parent_metric=None)
-            dims = metric.dims
-            t_schouten = (
-                t_ricci.tensor()
-                - (r_scalar.expr * metric.lower_config().tensor() / (2 * (dims - 1)))
-            ) / (dims - 2)
-            return cls(t_schouten, metric.syms, config="ll", parent_metric=metric)
-        raise ValueError("Dimension of the space/space-time should be 3 or more")
+        pass
 
     def change_config(self, newconfig="ul", metric=None):
         """
@@ -126,11 +117,4 @@ class SchoutenTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(SchoutenTensor, self).lorentz_transform(transformation_matrix)
-        return SchoutenTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

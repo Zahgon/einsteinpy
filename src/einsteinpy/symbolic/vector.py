@@ -97,12 +97,4 @@ class GenericVector(BaseRelativityTensor):
                 lorentz transformed vector
 
         """
-
-        t = super(GenericVector, self).lorentz_transform(transformation_matrix)
-        return GenericVector(
-            t.tensor(),
-            syms=self.syms,
-            config=self.config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

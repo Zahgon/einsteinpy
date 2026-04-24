@@ -72,25 +72,7 @@ class RiemannCurvatureTensor(BaseRelativityTensor):
             Defaults to None.
 
         """
-        if not chris.config == "ull":
-            chris = chris.change_config(newconfig="ull", metric=parent_metric)
-        arr, syms = chris.tensor(), chris.symbols()
-        dims = len(syms)
-        riemann_list = (np.zeros(shape=(dims, dims, dims, dims), dtype=int)).tolist()
-        for i in range(dims**4):
-            # t,s,r,n each goes from 0 to (dims-1)
-            # hack for codeclimate. Could be done with 4 nested for loops
-            n = i % dims
-            r = (int(i / dims)) % (dims)
-            s = (int(i / (dims**2))) % (dims)
-            t = (int(i / (dims**3))) % (dims)
-            temp = sympy.diff(arr[t, s, n], syms[r]) - sympy.diff(arr[t, s, r], syms[n])
-            for p in range(dims):
-                temp += arr[p, s, n] * arr[t, p, r] - arr[p, s, r] * arr[t, p, n]
-            riemann_list[t][s][r][n] = sympy.simplify(temp)
-        if parent_metric is None:
-            parent_metric = chris.parent_metric
-        return cls(riemann_list, syms, config="ulll", parent_metric=parent_metric)
+        pass
 
     @classmethod
     def from_metric(cls, metric):
@@ -103,8 +85,7 @@ class RiemannCurvatureTensor(BaseRelativityTensor):
             Metric Tensor from which Riemann Curvature Tensor to be calculated
 
         """
-        ch = ChristoffelSymbols.from_metric(metric)
-        return cls.from_christoffels(ch, parent_metric=None)
+        pass
 
     def change_config(self, newconfig="llll", metric=None):
         """
@@ -159,11 +140,4 @@ class RiemannCurvatureTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(RiemannCurvatureTensor, self).lorentz_transform(transformation_matrix)
-        return RiemannCurvatureTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

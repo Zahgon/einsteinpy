@@ -127,10 +127,4 @@ class MetricTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(MetricTensor, self).lorentz_transform(transformation_matrix)
-        return MetricTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

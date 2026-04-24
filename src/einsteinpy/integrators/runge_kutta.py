@@ -38,21 +38,7 @@ class RK4naive:
         """
         Updates the value of self.t and self.y
         """
-        if (self.t >= self.t_bound and self.direction == 1) or (
-            self.t <= self.t_bound and self.direction == -1
-        ):
-            warnings.warn("Out of bounds set by t_bound. ", RuntimeWarning)
-            return
-        k0 = self._fun(self.t, self.y)
-        k1 = self._fun(
-            self.t + (self.step_size / 2.0), self.y + (self.step_size / 2.0) * k0
-        )
-        k2 = self._fun(
-            self.t + (self.step_size / 2.0), self.y + (self.step_size / 2.0) * k1
-        )
-        k3 = self._fun(self.t + self.step_size, self.y + (self.step_size) * k2)
-        self.y = self.y + ((self.step_size / 6.0) * (k0 + 2 * k1 + 2 * k2 + k3))
-        self.t = self.t + self.step_size
+        pass
 
 
 class RK45(integrate.RK45):
@@ -104,11 +90,4 @@ class RK45(integrate.RK45):
         """
         Updates the value of self.t and self.y
         """
-
-        try:
-            super(RK45, self).step()
-        except RuntimeError:
-            warnings.warn(
-                "Attempt to step on a failed or finished solver. (Invalid Value or out of bounds of t_bound)",
-                RuntimeWarning,
-            )
+        pass

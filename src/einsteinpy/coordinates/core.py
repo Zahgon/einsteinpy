@@ -86,7 +86,7 @@ class Cartesian(CartesianConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (_c * self.t.si.value, self.x.si.value, self.y.si.value, self.z.si.value)
+        pass
 
     def to_spherical(self, **kwargs):
         """
@@ -103,9 +103,7 @@ class Cartesian(CartesianConversion):
             Spherical representation of the Cartesian Coordinates
 
         """
-        t, r, theta, phi = self.convert_spherical()
-
-        return Spherical(t * u.s, r * u.m, theta * u.rad, phi * u.rad)
+        pass
 
     def to_bl(self, **kwargs):
         """
@@ -135,10 +133,7 @@ class Cartesian(CartesianConversion):
             Boyer-Lindquist representation of the Cartesian Coordinates
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi = self.convert_bl(M=M, a=a)
-
-        return BoyerLindquist(t * u.s, r * u.m, theta * u.rad, phi * u.rad)
+        pass
 
 
 class Spherical(SphericalConversion):
@@ -216,12 +211,7 @@ class Spherical(SphericalConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (
-            _c * self.t.si.value,
-            self.r.si.value,
-            self.theta.si.value,
-            self.phi.si.value,
-        )
+        pass
 
     def to_cartesian(self, **kwargs):
         """
@@ -238,9 +228,7 @@ class Spherical(SphericalConversion):
             Cartesian representation of the Spherical Polar Coordinates
 
         """
-        t, x, y, z = self.convert_cartesian()
-
-        return Cartesian(t * u.s, x * u.m, y * u.m, z * u.m)
+        pass
 
     def to_bl(self, **kwargs):
         """
@@ -271,10 +259,7 @@ class Spherical(SphericalConversion):
             Polar Coordinates
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi = self.convert_bl(M=M, a=a)
-
-        return BoyerLindquist(t * u.s, r * u.m, theta * u.rad, phi * u.rad)
+        pass
 
 
 class BoyerLindquist(BoyerLindquistConversion):
@@ -352,12 +337,7 @@ class BoyerLindquist(BoyerLindquistConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (
-            _c * self.t.si.value,
-            self.r.si.value,
-            self.theta.si.value,
-            self.phi.si.value,
-        )
+        pass
 
     def to_cartesian(self, **kwargs):
         """
@@ -387,10 +367,7 @@ class BoyerLindquist(BoyerLindquistConversion):
             Cartesian representation of the Boyer-Lindquist Coordinates
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, x, y, z = self.convert_cartesian(M=M, a=a)
-
-        return Cartesian(t * u.s, x * u.m, y * u.m, z * u.m)
+        pass
 
     def to_spherical(self, **kwargs):
         """
@@ -421,7 +398,4 @@ class BoyerLindquist(BoyerLindquistConversion):
             Boyer-Lindquist Coordinates
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi = self.convert_spherical(M=M, a=a)
-
-        return Spherical(t * u.s, r * u.m, theta * u.rad, phi * u.rad)
+        pass

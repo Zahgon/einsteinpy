@@ -49,17 +49,7 @@ class EinsteinTensor(BaseRelativityTensor):
 
     @classmethod
     def from_metric(cls, metric):
-        t_ricci = RicciTensor.from_metric(metric)
-        r_scalar = RicciScalar.from_riccitensor(t_ricci, t_ricci.parent_metric)
-        einstein_tensor = (
-            t_ricci.tensor() - (1 / 2) * metric.lower_config().tensor() * r_scalar.expr
-        )
-        return cls(
-            einstein_tensor,
-            metric.syms,
-            config="ll",
-            parent_metric=t_ricci.parent_metric,
-        )
+        pass
 
     def change_config(self, newconfig="ul", metric=None):
         """
@@ -114,11 +104,4 @@ class EinsteinTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(EinsteinTensor, self).lorentz_transform(transformation_matrix)
-        return EinsteinTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

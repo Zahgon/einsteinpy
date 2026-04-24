@@ -12,14 +12,7 @@ __all__ = ["jit"]
 
 def ijit(first=None, *args, **kwargs):
     """Identity JIT, returns unchanged function."""
-
-    def _jit(f):
-        return f
-
-    if inspect.isfunction(first):
-        return first
-
-    return _jit
+    pass
 
 
 try:

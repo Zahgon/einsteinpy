@@ -53,12 +53,7 @@ class Schwarzschild(BaseMetric):
             Numpy array of shape (4,4)
 
         """
-        if self.coords.system == "Spherical":
-            return self._g_cov_s(x_vec)
-
-        raise CoordinateError(
-            "Schwarzschild Metric is available only in Spherical Polar Coordinates."
-        )
+        pass
 
     def _g_cov_s(self, x_vec):
         """
@@ -77,17 +72,7 @@ class Schwarzschild(BaseMetric):
             Numpy array of shape (4,4)
 
         """
-        r, th = x_vec[1], x_vec[2]
-        r_s = self.sch_rad
-        g_cov = np.zeros(shape=(4, 4), dtype=float)
-
-        tmp = 1.0 - (r_s / r)
-        g_cov[0, 0] = tmp * _c**2
-        g_cov[1, 1] = -1.0 / tmp
-        g_cov[2, 2] = -(r**2)
-        g_cov[3, 3] = -((r * np.sin(th)) ** 2)
-
-        return g_cov
+        pass
 
     def _christoffels(self, x_vec):
         """
@@ -112,12 +97,7 @@ class Schwarzschild(BaseMetric):
             available in the supplied Coordinate System
 
         """
-        if self.coords.system == "Spherical":
-            return self._ch_sym_s(x_vec)
-
-        raise CoordinateError(
-            "Christoffel Symbols for Schwarzschild Metric are available only in Spherical Polar Coordinates."
-        )
+        pass
 
     def _ch_sym_s(self, x_vec):
         """
@@ -137,20 +117,7 @@ class Schwarzschild(BaseMetric):
             Numpy array of shape (4,4,4)
 
         """
-        r, th = x_vec[1], x_vec[2]
-        r_s = self.sch_rad
-        chl = np.zeros(shape=(4, 4, 4), dtype=float)
-
-        chl[1, 0, 0] = 0.5 * r_s * (r - r_s) * (_c**2) / (r**3)
-        chl[1, 1, 1] = 0.5 * r_s / (r_s * r - r**2)
-        chl[1, 2, 2] = r_s - r
-        chl[1, 3, 3] = (r_s - r) * (np.sin(th) ** 2)
-        chl[0, 0, 1] = chl[0, 1, 0] = -chl[1, 1, 1]
-        chl[2, 2, 1] = chl[2, 1, 2] = chl[3, 3, 1] = chl[3, 1, 3] = 1 / r
-        chl[2, 3, 3] = -np.cos(th) * np.sin(th)
-        chl[3, 3, 2] = chl[3, 2, 3] = 1 / np.tan(th)
-
-        return chl
+        pass
 
     def _f_vec(self, lambda_, vec):
         """
@@ -179,12 +146,7 @@ class Schwarzschild(BaseMetric):
             the supplied Coordinate System
 
         """
-        if self.coords.system == "Spherical":
-            return self._f_vec_s(lambda_, vec)
-
-        raise CoordinateError(
-            "'f_vec' for Schwarzschild Metric is available only in Spherical Polar Coordinates."
-        )
+        pass
 
     def _f_vec_s(self, lambda_, vec):
         """
@@ -207,18 +169,4 @@ class Schwarzschild(BaseMetric):
             Numpy array of shape (8)
 
         """
-        chl = self.christoffels(vec[:4])
-        vals = np.zeros(shape=vec.shape, dtype=vec.dtype)
-
-        vals[:4] = vec[4:]
-        vals[4] = -2 * chl[0, 0, 1] * vec[4] * vec[5]
-        vals[5] = -1 * (
-            chl[1, 0, 0] * (vec[4] ** 2)
-            + chl[1, 1, 1] * (vec[5] ** 2)
-            + chl[1, 2, 2] * (vec[6] ** 2)
-            + chl[1, 3, 3] * (vec[7] ** 2)
-        )
-        vals[6] = -2 * chl[2, 2, 1] * vec[6] * vec[5] - 1 * chl[2, 3, 3] * (vec[7] ** 2)
-        vals[7] = -2 * (chl[3, 3, 1] * vec[7] * vec[5] + chl[3, 3, 2] * vec[7] * vec[6])
-
-        return vals
+        pass

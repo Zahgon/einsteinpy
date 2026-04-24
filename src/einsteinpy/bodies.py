@@ -72,7 +72,7 @@ class Body:
     def __post_init__(self):
         @u.quantity_input(mass=u.kg, q=u.C, R=u.km)
         def check_units(mass, q, R):
-            return mass, q, R
+            pass
 
         check_units(self.mass, self.q, self.R)
         diff = self.coords

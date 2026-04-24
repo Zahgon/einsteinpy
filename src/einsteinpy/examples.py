@@ -17,19 +17,4 @@ def precession():
         Timelike Geodesic, defining test particle trajectory
 
     """
-    # Defining initial conditions
-    metric = "Schwarzschild"
-    position = [40.0, np.pi / 2, 0.0]
-    momentum = [0.0, 0.0, 3.83405]
-
-    # Calculating Geodesic
-    geod = Timelike(
-        metric=metric,
-        metric_params=(),
-        position=position,
-        momentum=momentum,
-        steps=5500,
-        delta=1.0,
-    )
-
-    return geod
+    pass

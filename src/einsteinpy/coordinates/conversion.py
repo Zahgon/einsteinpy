@@ -58,18 +58,7 @@ class CartesianConversion:
             in SI units
 
         """
-        if self._velocities_provided:
-            return (
-                self.t_si,
-                self.x_si,
-                self.y_si,
-                self.z_si,
-                self.v_x_si,
-                self.v_y_si,
-                self.v_z_si,
-            )
-
-        return self.t_si, self.x_si, self.y_si, self.z_si
+        pass
 
     def convert_spherical(self, **kwargs):
         """
@@ -87,16 +76,7 @@ class CartesianConversion:
             Spherical Polar Coordinates
 
         """
-        return cartesian_to_spherical_fast(
-            self.t_si,
-            self.x_si,
-            self.y_si,
-            self.z_si,
-            self.v_x_si,
-            self.v_y_si,
-            self.v_z_si,
-            self._velocities_provided,
-        )
+        pass
 
     def convert_bl(self, **kwargs):
         """
@@ -130,26 +110,7 @@ class CartesianConversion:
             and ``a`` as keyword arguments
 
         """
-        try:
-            M, a = kwargs["M"], kwargs["a"]
-        except KeyError:
-            raise KeyError(
-                "Two keyword arguments are expected: Mass, 'M' and Spin Parameter, 'a'."
-            )
-
-        alpha = BaseMetric.alpha(M=M, a=a)
-
-        return cartesian_to_bl_fast(
-            self.t_si,
-            self.x_si,
-            self.y_si,
-            self.z_si,
-            alpha,
-            self.v_x_si,
-            self.v_y_si,
-            self.v_z_si,
-            self._velocities_provided,
-        )
+        pass
 
 
 class SphericalConversion:
@@ -203,18 +164,7 @@ class SphericalConversion:
             in SI units
 
         """
-        if self._velocities_provided:
-            return (
-                self.t_si,
-                self.r_si,
-                self.th_si,
-                self.p_si,
-                self.v_r_si,
-                self.v_th_si,
-                self.v_p_si,
-            )
-
-        return self.t_si, self.r_si, self.th_si, self.p_si
+        pass
 
     def convert_cartesian(self, **kwargs):
         """
@@ -232,16 +182,7 @@ class SphericalConversion:
             Cartesian Coordinates
 
         """
-        return spherical_to_cartesian_fast(
-            self.t_si,
-            self.r_si,
-            self.th_si,
-            self.p_si,
-            self.v_r_si,
-            self.v_th_si,
-            self.v_p_si,
-            self._velocities_provided,
-        )
+        pass
 
     def convert_bl(self, **kwargs):
         """
@@ -275,17 +216,7 @@ class SphericalConversion:
             and ``a`` as keyword arguments
 
         """
-        try:
-            M, a = kwargs["M"], kwargs["a"]
-        except KeyError:
-            raise KeyError(
-                "Two keyword arguments are expected: Mass, 'M' and Spin Parameter, 'a'."
-            )
-
-        transformed_cartesian = self.convert_cartesian()
-        cart = CartesianConversion(*transformed_cartesian)
-
-        return cart.convert_bl(M=M, a=a)
+        pass
 
 
 class BoyerLindquistConversion:
@@ -339,18 +270,7 @@ class BoyerLindquistConversion:
             in SI units
 
         """
-        if self._velocities_provided:
-            return (
-                self.t_si,
-                self.r_si,
-                self.th_si,
-                self.p_si,
-                self.v_r_si,
-                self.v_th_si,
-                self.v_p_si,
-            )
-
-        return self.t_si, self.r_si, self.th_si, self.p_si
+        pass
 
     def convert_cartesian(self, **kwargs):
         """
@@ -384,26 +304,7 @@ class BoyerLindquistConversion:
             and ``a`` as keyword arguments
 
         """
-        try:
-            M, a = kwargs["M"], kwargs["a"]
-        except KeyError:
-            raise KeyError(
-                "Two keyword arguments are expected: Mass, 'M' and Spin Parameter, 'a'."
-            )
-
-        alpha = BaseMetric.alpha(M=M, a=a)
-
-        return bl_to_cartesian_fast(
-            self.t_si,
-            self.r_si,
-            self.th_si,
-            self.p_si,
-            alpha,
-            self.v_r_si,
-            self.v_th_si,
-            self.v_p_si,
-            self._velocities_provided,
-        )
+        pass
 
     def convert_spherical(self, **kwargs):
         """
@@ -437,14 +338,4 @@ class BoyerLindquistConversion:
             and ``a`` as keyword arguments
 
         """
-        try:
-            M, a = kwargs["M"], kwargs["a"]
-        except KeyError:
-            raise KeyError(
-                "Two keyword arguments are expected: Mass, 'M' and Spin Parameter, 'a'."
-            )
-
-        transformed_cartesian = self.convert_cartesian(M=M, a=a)
-        cart = CartesianConversion(*transformed_cartesian)
-
-        return cart.convert_spherical()
+        pass

@@ -5,15 +5,7 @@ from einsteinpy.plotting.geodesic.static import StaticGeodesicPlotter
 
 
 def in_ipynb():
-    try:
-        shell = get_ipython().__class__.__name__  # type: ignore
-        if shell == "ZMQInteractiveShell":
-            return InteractiveGeodesicPlotter
-        if shell == "TerminalInteractiveShell":
-            return StaticGeodesicPlotter
-        return StaticGeodesicPlotter
-    except NameError:
-        return StaticGeodesicPlotter
+    pass
 
 
 class GeodesicPlotter(in_ipynb()):  # type: ignore

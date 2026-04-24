@@ -33,7 +33,7 @@ class SymbolicConstant(Symbol):
         Returns the extended name of the constant
 
         """
-        return self._descriptive_name
+        pass
 
 
 c = SymbolicConstant("c", "Speed Of Light")

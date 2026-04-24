@@ -147,7 +147,7 @@ class Geodesic:
         Returns the trajectory of the test particle
 
         """
-        return self._trajectory
+        pass
 
     def calculate_trajectory(self, **kwargs):
         """
@@ -199,60 +199,7 @@ class Geodesic:
             Defaults to ``False``
 
         """
-        g, g_prms = self.metric, self.metric_params
-        q0, p0 = self.position, self.momentum
-        tl = self.time_like
-        N = kwargs.get("steps", 50)
-        dl = kwargs.get("delta", 0.5)
-        rtol = kwargs.get("rtol", 1e-2)
-        atol = kwargs.get("atol", 1e-2)
-        order = kwargs.get("order", 2)
-        omega = kwargs.get("omega", 1.0)
-        sw = kwargs.get("suppress_warnings", False)
-        steps = np.arange(N)
-
-        geodint = GeodesicIntegrator(
-            metric=g,
-            metric_params=g_prms,
-            q0=q0,
-            p0=p0,
-            time_like=tl,
-            steps=N,
-            delta=dl,
-            rtol=rtol,
-            atol=atol,
-            order=order,
-            omega=omega,
-            suppress_warnings=sw,
-        )
-
-        for i in steps:
-            geodint.step()
-
-        vecs = np.array(geodint.results, dtype=float)
-
-        q1 = vecs[:, 0]
-        p1 = vecs[:, 1]
-        results = np.hstack((q1, p1))
-        # Ignoring
-        # q2 = vecs[:, 2]
-        # p2 = vecs[:, 3]
-
-        if self.coords == "Cartesian":
-            # Converting to Cartesian from Spherical Polar Coordinates
-            # Note that momenta cannot be converted this way,
-            # due to ambiguities in the signs of v_r and v_th (velocities)
-            t, r, th, ph = q1.T
-            pt, pr, pth, pph = p1.T
-            x = r * np.sin(th) * np.cos(ph)
-            y = r * np.sin(th) * np.sin(ph)
-            z = r * np.cos(th)
-
-            cart_results = np.vstack((t, x, y, z, pt, pr, pth, pph)).T
-
-            return steps, cart_results
-
-        return steps, results
+        pass
 
 
 class Nulllike(Geodesic):

@@ -57,26 +57,7 @@ class ChristoffelSymbols(BaseRelativityTensor):
             Space-time Metric from which Christoffel Symbols are to be calculated
 
         """
-        dims = metric.dims
-        tmplist = np.zeros((dims, dims, dims), dtype=int).tolist()
-        mat, syms = metric.lower_config().tensor(), metric.symbols()
-        matinv = sympy.Matrix(mat.tolist()).inv()
-        for t in range(dims**3):
-            # i,j,k each goes from 0 to (dims-1)
-            # hack for codeclimate. Could be done with 3 nested for loops
-            k = t % dims
-            j = (int(t / dims)) % (dims)
-            i = (int(t / (dims**2))) % (dims)
-            if k <= j:
-                tmpvar = 0
-                for n in range(dims):
-                    tmpvar += (matinv[i, n] / 2) * (
-                        sympy.diff(mat[n, j], syms[k])
-                        + sympy.diff(mat[n, k], syms[j])
-                        - sympy.diff(mat[j, k], syms[n])
-                    )
-                tmplist[i][j][k] = tmplist[i][k][j] = tmpvar
-        return cls(tmplist, syms, config="ull", parent_metric=metric)
+        pass
 
     def change_config(self, newconfig="lll", metric=None):
         """
@@ -131,11 +112,4 @@ class ChristoffelSymbols(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(ChristoffelSymbols, self).lorentz_transform(transformation_matrix)
-        return ChristoffelSymbols(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

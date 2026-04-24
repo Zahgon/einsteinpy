@@ -209,7 +209,7 @@ class BaseMetric:
             The value of ``sqrt(r**2 + alpha**2 * cos(theta)**2) == sqrt(sigma)``
 
         """
-        return np.sqrt(BaseMetric.sigma(r, theta, M, a))
+        pass
 
     @staticmethod
     def schwarzschild_radius(M):
@@ -226,9 +226,7 @@ class BaseMetric:
         float
             Schwarzschild Radius for a given mass
         """
-        (M,) = primitive(M)
-
-        return 2 * _G * M / _c**2
+        pass
 
     @staticmethod
     def alpha(M, a):
@@ -289,57 +287,7 @@ class BaseMetric:
             coordinate system, the metric object has been instantiated with
 
         """
-        system, M, a, Q = self.coords.system, self.M.value, self.a.value, self.Q.value
-
-        r_s = 2 * M * _G / _c**2
-        alpha = BaseMetric.alpha(M, a)
-        # Square of Geometrized Charge
-        r_Q2 = (Q**2) * _G * _Cc / _c**4
-
-        def _in_ergo(theta):
-            return (
-                r_s
-                - np.sqrt((r_s**2) - (4 * (alpha * np.cos(theta)) ** 2) - (4 * r_Q2))
-            ) / 2
-
-        def _out_ergo(theta):
-            return (
-                r_s
-                + np.sqrt((r_s**2) - (4 * (alpha * np.cos(theta)) ** 2) - (4 * r_Q2))
-            ) / 2
-
-        if self.name in ("Kerr Metric", "Kerr-Newman Metric"):
-            if system == "BoyerLindquist":  # Kerr & Kerr-Newman Geometries
-                return {
-                    "inner_ergosphere": _in_ergo,
-                    "inner_horizon": (
-                        r_s - np.sqrt((r_s**2) - (4 * alpha**2) - (4 * r_Q2))
-                    )
-                    / 2,
-                    "outer_horizon": (
-                        r_s + np.sqrt((r_s**2) - (4 * alpha**2) - (4 * r_Q2))
-                    )
-                    / 2,
-                    "outer_ergosphere": _out_ergo,
-                }
-
-            raise CoordinateError(
-                "Singularities for Kerr solutions are only available in"
-                "Boyer-Lindquist Coordinates."
-            )
-
-        if system == "Spherical":  # Schwarzschild Geometry
-            return {
-                "inner_ergosphere": 0,
-                "inner_horizon": 0,
-                "outer_horizon": r_s,
-                "outer_ergosphere": r_s,
-            }
-
-        raise CoordinateError(
-            "Singularities for Schwarzschild Metric are only available in"
-            "Spherical Polar Coordinates."
-        )
+        pass
 
     def metric_covariant(self, x_vec):
         """
@@ -362,13 +310,7 @@ class BaseMetric:
             Numpy array of shape (4,4)
 
         """
-        g_cov = self.metric_cov(x_vec)
-
-        if self.perturbation:
-            p_cov = self.perturbation(x_vec)
-            return g_cov + p_cov
-
-        return g_cov
+        pass
 
     def metric_contravariant(self, x_vec):
         """
@@ -390,10 +332,7 @@ class BaseMetric:
             Contravariant Metric Tensor
 
         """
-        g_cov = self.metric_covariant(x_vec)
-        g_contra = np.linalg.inv(g_cov)
-
-        return g_contra
+        pass
 
     # Deprecated function
     def calculate_trajectory(
@@ -411,9 +350,4 @@ class BaseMetric:
         Calculate trajectory in manifold according to geodesic equation
 
         """
-        warnings.warn(
-            "calculate_trajectory() \
-            has been deprecated in Version 0.4.0 \
-            Please use einsteinpy.Geodesic.calculate_trajectory()!",
-            DeprecationWarning,
-        )
+        pass

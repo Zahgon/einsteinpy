@@ -25,18 +25,7 @@ class ShadowPlotter:
         """
         Plots the shadow.
         """
-        if self.is_intensity_plot:
-            plt.plot(self.shadow.fb1, self.shadow.intensity, "r")
-            plt.plot(self.shadow.fb2, self.shadow.intensity, "r")
-            plt.xlabel("Impact Paramter (b)")
-            plt.ylabel("Intensity (Emissivity)")
-            plt.title("Intensity Plot")
-        else:
-            theta1 = np.linspace(0, 2 * np.pi, len(self.shadow.fb1))
-            self.r1, self.theta1 = np.meshgrid(self.shadow.fb1, theta1)
-            self.values1, self.values2 = np.meshgrid(
-                self.shadow.intensity, self.shadow.intensity
-            )
+        pass
 
     def show(self):
         """

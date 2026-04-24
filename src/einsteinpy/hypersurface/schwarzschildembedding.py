@@ -59,15 +59,7 @@ class SchwarzschildEmbedding:
             gradient of Z w.r.t r at the point r (passed as argument)
 
         """
-        R = r / np.sqrt(1 - (2 * self.M.value / r))
-        num_one = 1 - (3 * self.M.value / r)
-        num_two = np.sqrt(
-            ((4 * self.M.value * r - 9 * self.M.value * self.M.value) * R)
-            / (r - 3 * self.M.value) ** 2
-        )
-        deno = np.sqrt(1 - (2 * self.M.value / r)) ** 3
-
-        return num_one * num_two / deno
+        pass
 
     def radial_coord(self, r):
         """
@@ -84,7 +76,7 @@ class SchwarzschildEmbedding:
             spherical radial coordinate of the 3d embedding
 
         """
-        return r / np.sqrt(1 - (2 * self.M.value / r))
+        pass
 
     def get_values(self, alpha):
         """
@@ -102,28 +94,7 @@ class SchwarzschildEmbedding:
             (list, list) : values of R (x_axis) and Z (y_axis)
 
         """
-        x_axis = []
-        y_axis = []
-        r_initial = self.r_init.value
-        r_step = self.M.value / alpha
-
-        z = 0
-        r = r_initial
-        while r < 9 * self.M.value:
-            x_axis.append(self.radial_coord(r))
-            y_axis.append(z)
-            z = z + self.gradient(r) * r_step
-            r = r + r_step
-
-        z = 0
-        r = r_initial
-        while r > (9 * self.M.value / 4):
-            x_axis.append(self.radial_coord(r))
-            y_axis.append(z)
-            z = z + self.gradient(r) * r_step
-            r = r - r_step
-
-        return x_axis, y_axis
+        pass
 
     def get_values_surface(self, alpha):
         """
@@ -143,30 +114,4 @@ class SchwarzschildEmbedding:
             obtained after applying solid of revolution
 
         """
-        r_initial = self.r_init.value
-        r_step = self.M.value / alpha
-        phi_values = np.linspace(0, 2 * np.pi, 60)
-        R_values = []
-        z_values = []
-
-        z = 0
-        r = r_initial
-        while r < 20 * self.M.value:
-            R_values.append(self.radial_coord(r))
-            z_values.append(z)
-            z = z + self.gradient(r) * r_step
-            r = r + r_step
-
-        R_values = np.array(R_values)
-        R_values, phi_values = np.meshgrid(R_values, phi_values)
-
-        X = R_values * np.cos(phi_values)
-        Y = R_values * np.sin(phi_values)
-        x_len = X.shape[0]
-        Z = np.array(z_values)
-        z_values = np.array(z_values)
-        for i in range(0, x_len - 1):
-            Z = np.concatenate((Z, z_values), axis=0)
-
-        Z.reshape((X.shape[0], X.shape[1]))
-        return X, Y, Z
+        pass

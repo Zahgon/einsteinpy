@@ -27,17 +27,7 @@ class HypersurfacePlotter:
         """
         Plots the surface thus obtained for the embedding.
         """
-        fig = plt.figure()
-        ax = plt.axes(projection="3d")
-        X, Y, Z = self.embedding.get_values_surface(self.alpha)
-        shape_tuple = X.shape
-        Z = Z.reshape((shape_tuple[0], shape_tuple[1]))
-        if self.plot_type == "wireframe":
-            ax.plot_wireframe(X, Y, Z, color="black")
-        elif self.plot_type == "surface":
-            ax.plot_surface(
-                X, Y, Z, rstride=1, cstride=1, cmap="cubehelix", edgecolor="none"
-            )
+        pass
 
     def show(self):
         """

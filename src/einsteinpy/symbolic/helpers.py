@@ -6,7 +6,7 @@ from sympy import ImmutableDenseNDimArray, derive_by_array
 
 
 def raise_warning(WarningType, message):
-    warnings.warn(message, WarningType)
+    pass
 
 
 def _flatten_list(seq):
@@ -152,17 +152,7 @@ class TransformationMatrix(ImmutableDenseNDimArray):
             For example, ``[r*cos(theta), r*sin(theta)]``.
 
         """
-        tmp_array = derive_by_array(new2old, new_coords)
-        tmp_array = sympy_to_np_array(tmp_array)
-        derivative_array = np.reciprocal(tmp_array)
-        return cls(
-            derivative_array,
-            old_coords,
-            new_coords,
-            old2new=None,
-            new2old=new2old,
-            **kwargs
-        )
+        pass
 
     @classmethod
     def from_old2new(cls, old_coords, new_coords, old2new=None, new2old=None, **kwrags):

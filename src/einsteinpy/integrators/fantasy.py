@@ -153,45 +153,7 @@ class GeodesicIntegrator:
             `2021 ApJ 909 67 <https://doi.org/10.3847/1538-4357/abdc28>`__
 
         """
-        dl, omg = delta, self.omega
-        g = self.metric
-        g_prms = self.metric_params
-
-        HA1 = np.array(
-            [
-                q1,
-                _flow_A(g, g_prms, q1, p1, q2, p2, 0.5 * dl)[1],
-                _flow_A(g, g_prms, q1, p1, q2, p2, 0.5 * dl)[0],
-                p2,
-            ]
-        )
-        HB1 = np.array(
-            [
-                _flow_B(g, g_prms, HA1[0], HA1[1], HA1[2], HA1[3], 0.5 * dl)[0],
-                HA1[1],
-                HA1[2],
-                _flow_B(g, g_prms, HA1[0], HA1[1], HA1[2], HA1[3], 0.5 * dl)[1],
-            ]
-        )
-        HC = _flow_mixed(HB1[0], HB1[1], HB1[2], HB1[3], dl, omg)
-        HB2 = np.array(
-            [
-                _flow_B(g, g_prms, HC[0], HC[1], HC[2], HC[3], 0.5 * dl)[0],
-                HC[1],
-                HC[2],
-                _flow_B(g, g_prms, HC[0], HC[1], HC[2], HC[3], 0.5 * dl)[1],
-            ]
-        )
-        HA2 = np.array(
-            [
-                HB2[0],
-                _flow_A(g, g_prms, HB2[0], HB2[1], HB2[2], HB2[3], 0.5 * dl)[1],
-                _flow_A(g, g_prms, HB2[0], HB2[1], HB2[2], HB2[3], 0.5 * dl)[0],
-                HB2[3],
-            ]
-        )
-
-        return HA2
+        pass
 
     def _ord_4(self, q1, p1, q2, p2, delta):
         """
@@ -205,14 +167,7 @@ class GeodesicIntegrator:
             `DOI: <https://doi.org/10.1016/0375-9601(90)90092-3>`__
 
         """
-        dl = delta
-
-        Z0, Z1 = _Z(self.order)
-        step1 = self._ord_2(q1, p1, q2, p2, dl * Z1)
-        step2 = self._ord_2(step1[0], step1[1], step1[2], step1[3], dl * Z0)
-        step3 = self._ord_2(step2[0], step2[1], step2[2], step2[3], dl * Z1)
-
-        return step3
+        pass
 
     def _ord_6(self, q1, p1, q2, p2, delta):
         """
@@ -226,14 +181,7 @@ class GeodesicIntegrator:
             `DOI: <https://doi.org/10.1016/0375-9601(90)90092-3>`__
 
         """
-        dl = delta
-
-        Z0, Z1 = _Z(self.order)
-        step1 = self._ord_4(q1, p1, q2, p2, dl * Z1)
-        step2 = self._ord_4(step1[0], step1[1], step1[2], step1[3], dl * Z0)
-        step3 = self._ord_4(step2[0], step2[1], step2[2], step2[3], dl * Z1)
-
-        return step3
+        pass
 
     def _ord_8(self, q1, p1, q2, p2, delta):
         """
@@ -247,46 +195,11 @@ class GeodesicIntegrator:
             `DOI: <https://doi.org/10.1016/0375-9601(90)90092-3>`__
 
         """
-        dl = delta
-
-        Z0, Z1 = _Z(self.order)
-        step1 = self._ord_6(q1, p1, q2, p2, dl * Z1)
-        step2 = self._ord_6(step1[0], step1[1], step1[2], step1[3], dl * Z0)
-        step3 = self._ord_6(step2[0], step2[1], step2[2], step2[3], dl * Z1)
-
-        return step3
+        pass
 
     def step(self):
         """
         Advances integration by one step
 
         """
-        rl = self.res_list
-
-        arr = self.integrator(rl[0], rl[1], rl[2], rl[3], self.delta)
-
-        self.res_list = arr
-        self.step_num += 1
-
-        # Stability check
-        if not self.suppress_warnings:
-            g = self.metric
-            g_prms = self.metric_params
-
-            q1 = arr[0]
-            p1 = arr[1]
-            # Ignoring
-            # q_2 = arr[2]
-            # p_2 = arr[3]
-
-            const = -int(self.time_like)
-            # g.p.p ~ -1 or 0 (const)
-            if not np.allclose(
-                g(q1, *g_prms) @ p1 @ p1, const, rtol=self.rtol, atol=self.atol
-            ):
-                warnings.warn(
-                    f"Numerical error has exceeded specified tolerance at step = {self.step_num}.",
-                    RuntimeWarning,
-                )
-
-        self.results.append(self.res_list)
+        pass

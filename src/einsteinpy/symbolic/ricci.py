@@ -63,16 +63,7 @@ class RicciTensor(BaseRelativityTensor):
             Defaults to None.
 
         """
-        if not riemann.config == "ulll":
-            riemann = riemann.change_config(newconfig="ulll", metric=parent_metric)
-        if parent_metric is None:
-            parent_metric = riemann.parent_metric
-        return cls(
-            simplify_sympy_array(sympy.tensorcontraction(riemann.tensor(), (0, 2))),
-            riemann.syms,
-            config="ll",
-            parent_metric=parent_metric,
-        )
+        pass
 
     @classmethod
     def from_christoffels(cls, chris, parent_metric=None):
@@ -89,10 +80,7 @@ class RicciTensor(BaseRelativityTensor):
             Defaults to None.
 
         """
-        rt = RiemannCurvatureTensor.from_christoffels(
-            chris, parent_metric=parent_metric
-        )
-        return cls.from_riemann(rt)
+        pass
 
     @classmethod
     def from_metric(cls, metric):
@@ -105,8 +93,7 @@ class RicciTensor(BaseRelativityTensor):
             Metric Tensor
 
         """
-        ch = ChristoffelSymbols.from_metric(metric)
-        return cls.from_christoffels(ch, parent_metric=None)
+        pass
 
     def change_config(self, newconfig="ul", metric=None):
         """
@@ -161,14 +148,7 @@ class RicciTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(RicciTensor, self).lorentz_transform(transformation_matrix)
-        return RicciTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass
 
 
 class RicciScalar(BaseRelativityTensor):
@@ -210,8 +190,7 @@ class RicciScalar(BaseRelativityTensor):
         """
         Retuns the symbolic expression of the Ricci Scalar
         """
-        val = sum(self.arr)  # sympy not allowing indexing, temporary fix!
-        return val
+        pass
 
     @classmethod
     def from_riccitensor(cls, riccitensor, parent_metric=None):
@@ -227,19 +206,7 @@ class RicciScalar(BaseRelativityTensor):
             Defaults to None.
 
         """
-
-        if not riccitensor.config == "ul":
-            riccitensor = riccitensor.change_config(
-                newconfig="ul", metric=parent_metric
-            )
-        if parent_metric is None:
-            parent_metric = riccitensor.parent_metric
-        ricci_scalar = tensorcontraction(riccitensor.tensor(), (0, 1))
-        return cls(
-            simplify_sympy_array(ricci_scalar),
-            riccitensor.syms,
-            parent_metric=parent_metric,
-        )
+        pass
 
     @classmethod
     def from_riemann(cls, riemann, parent_metric=None):
@@ -255,9 +222,7 @@ class RicciScalar(BaseRelativityTensor):
             Defaults to None.
 
         """
-
-        cg = RicciTensor.from_riemann(riemann, parent_metric=parent_metric)
-        return cls.from_riccitensor(cg)
+        pass
 
     @classmethod
     def from_christoffels(cls, chris, parent_metric=None):
@@ -273,10 +238,7 @@ class RicciScalar(BaseRelativityTensor):
             Defaults to None.
 
         """
-        rt = RiemannCurvatureTensor.from_christoffels(
-            chris, parent_metric=parent_metric
-        )
-        return cls.from_riemann(rt)
+        pass
 
     @classmethod
     def from_metric(cls, metric):
@@ -289,5 +251,4 @@ class RicciScalar(BaseRelativityTensor):
             Metric Tensor
 
         """
-        ch = ChristoffelSymbols.from_metric(metric)
-        return cls.from_christoffels(ch, parent_metric=None)
+        pass

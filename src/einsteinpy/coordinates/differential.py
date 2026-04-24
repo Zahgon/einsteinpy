@@ -84,7 +84,7 @@ class CartesianDifferential(CartesianConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (_c * self.t.si.value, self.x.si.value, self.y.si.value, self.z.si.value)
+        pass
 
     @property
     def v_t(self):
@@ -92,7 +92,7 @@ class CartesianDifferential(CartesianConversion):
         Returns the Timelike component of 4-Velocity
 
         """
-        return self._v_t
+        pass
 
     @v_t.setter
     def v_t(self, args):
@@ -112,18 +112,7 @@ class CartesianDifferential(CartesianConversion):
             other than Cartesian Coordinates.
 
         """
-        g = args[0]
-        if self.system != g.coords.system:
-            raise CoordinateError(
-                f"Metric object has been instantiated with a coordinate system, ( {g.coords.system} )"
-                " other than Cartesian Coordinates."
-            )
-
-        g_cov_mat = g.metric_covariant(self.position())
-
-        v_t = v0(g_cov_mat, self.v_x.si.value, self.v_y.si.value, self.v_z.si.value)
-
-        self._v_t = v_t * u.m / u.s
+        pass
 
     def velocity(self, metric):
         """
@@ -140,15 +129,7 @@ class CartesianDifferential(CartesianConversion):
             4-Tuple, containing Velocity 4-Vector in SI units
 
         """
-        # Setting _v_t
-        self.v_t = (metric,)
-
-        return (
-            self._v_t.value,
-            self.v_x.si.value,
-            self.v_y.si.value,
-            self.v_z.si.value,
-        )
+        pass
 
     def spherical_differential(self, **kwargs):
         """
@@ -165,16 +146,7 @@ class CartesianDifferential(CartesianConversion):
             Spherical Polar representation of velocity
 
         """
-        t, r, theta, phi, v_r, v_th, v_p = self.convert_spherical()
-        return SphericalDifferential(
-            t * u.s,
-            r * u.m,
-            theta * u.rad,
-            phi * u.rad,
-            v_r * u.m / u.s,
-            v_th * u.rad / u.s,
-            v_p * u.rad / u.s,
-        )
+        pass
 
     def bl_differential(self, **kwargs):
         """
@@ -201,17 +173,7 @@ class CartesianDifferential(CartesianConversion):
             Boyer-Lindquist representation of velocity
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi, v_r, v_th, v_p = self.convert_bl(M=M, a=a)
-        return BoyerLindquistDifferential(
-            t * u.s,
-            r * u.m,
-            theta * u.rad,
-            phi * u.rad,
-            v_r * u.m / u.s,
-            v_th * u.rad / u.s,
-            v_p * u.rad / u.s,
-        )
+        pass
 
 
 class SphericalDifferential(SphericalConversion):
@@ -291,12 +253,7 @@ class SphericalDifferential(SphericalConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (
-            _c * self.t.si.value,
-            self.r.si.value,
-            self.theta.si.value,
-            self.phi.si.value,
-        )
+        pass
 
     @property
     def v_t(self):
@@ -304,7 +261,7 @@ class SphericalDifferential(SphericalConversion):
         Returns the Timelike component of 4-Velocity
 
         """
-        return self._v_t
+        pass
 
     @v_t.setter
     def v_t(self, args):
@@ -324,18 +281,7 @@ class SphericalDifferential(SphericalConversion):
             other than Sperical Polar Coordinates.
 
         """
-        g = args[0]
-        if self.system != g.coords.system:
-            raise CoordinateError(
-                f"Metric object has been instantiated with a coordinate system, ( {g.coords.system} )"
-                " other than Spherical Polar Coordinates."
-            )
-
-        g_cov_mat = g.metric_covariant(self.position())
-
-        v_t = v0(g_cov_mat, self.v_r.si.value, self.v_th.si.value, self.v_p.si.value)
-
-        self._v_t = v_t * u.m / u.s
+        pass
 
     def velocity(self, metric):
         """
@@ -352,15 +298,7 @@ class SphericalDifferential(SphericalConversion):
             4-Tuple, containing Velocity 4-Vector in SI units
 
         """
-        # Setting _v_t
-        self.v_t = (metric,)
-
-        return (
-            self._v_t.value,
-            self.v_r.si.value,
-            self.v_th.si.value,
-            self.v_p.si.value,
-        )
+        pass
 
     def cartesian_differential(self, **kwargs):
         """
@@ -377,16 +315,7 @@ class SphericalDifferential(SphericalConversion):
             Cartesian representation of velocity
 
         """
-        t, x, y, z, v_x, v_y, v_z = self.convert_cartesian()
-        return CartesianDifferential(
-            t * u.s,
-            x * u.m,
-            y * u.m,
-            z * u.m,
-            v_x * u.m / u.s,
-            v_y * u.m / u.s,
-            v_z * u.m / u.s,
-        )
+        pass
 
     def bl_differential(self, **kwargs):
         """
@@ -413,17 +342,7 @@ class SphericalDifferential(SphericalConversion):
             Boyer-Lindquist representation of velocity
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi, v_r, v_th, v_p = self.convert_bl(M=M, a=a)
-        return BoyerLindquistDifferential(
-            t * u.s,
-            r * u.m,
-            theta * u.rad,
-            phi * u.rad,
-            v_r * u.m / u.s,
-            v_th * u.rad / u.s,
-            v_p * u.rad / u.s,
-        )
+        pass
 
 
 class BoyerLindquistDifferential(BoyerLindquistConversion):
@@ -503,12 +422,7 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
             4-Tuple, containing Position 4-Vector in SI units
 
         """
-        return (
-            _c * self.t.si.value,
-            self.r.si.value,
-            self.theta.si.value,
-            self.phi.si.value,
-        )
+        pass
 
     @property
     def v_t(self):
@@ -516,7 +430,7 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
         Returns the Timelike component of 4-Velocity
 
         """
-        return self._v_t
+        pass
 
     @v_t.setter
     def v_t(self, args):
@@ -536,18 +450,7 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
             other than Boyer-Lindquist Coordinates.
 
         """
-        g = args[0]
-        if self.system != g.coords.system:
-            raise CoordinateError(
-                "Metric object has been instantiated with a coordinate system, ( {g.coords.system} )"
-                " other than Boyer-Lindquist Coordinates."
-            )
-
-        g_cov_mat = g.metric_covariant(self.position())
-
-        v_t = v0(g_cov_mat, self.v_r.si.value, self.v_th.si.value, self.v_p.si.value)
-
-        self._v_t = v_t * u.m / u.s
+        pass
 
     def velocity(self, metric):
         """
@@ -564,15 +467,7 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
             4-Tuple, containing Velocity 4-Vector in SI units
 
         """
-        # Setting _v_t
-        self.v_t = (metric,)
-
-        return (
-            self._v_t.value,
-            self.v_r.si.value,
-            self.v_th.si.value,
-            self.v_p.si.value,
-        )
+        pass
 
     def cartesian_differential(self, **kwargs):
         """
@@ -599,17 +494,7 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
             Cartesian representation of velocity
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, x, y, z, v_x, v_y, v_z = self.convert_cartesian(M=M, a=a)
-        return CartesianDifferential(
-            t * u.s,
-            x * u.m,
-            y * u.m,
-            z * u.m,
-            v_x * u.m / u.s,
-            v_y * u.m / u.s,
-            v_z * u.m / u.s,
-        )
+        pass
 
     def spherical_differential(self, **kwargs):
         """
@@ -636,14 +521,4 @@ class BoyerLindquistDifferential(BoyerLindquistConversion):
             Spherical representation of velocity
 
         """
-        M, a = kwargs["M"], kwargs["a"]
-        t, r, theta, phi, v_r, v_th, v_p = self.convert_spherical(M=M, a=a)
-        return SphericalDifferential(
-            t * u.s,
-            r * u.m,
-            theta * u.rad,
-            phi * u.rad,
-            v_r * u.m / u.s,
-            v_th * u.rad / u.s,
-            v_p * u.rad / u.s,
-        )
+        pass

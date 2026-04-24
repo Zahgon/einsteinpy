@@ -55,13 +55,7 @@ class StressEnergyMomentumTensor(BaseRelativityTensor):
 
     @classmethod
     def from_metric(cls, metric):
-        t_einstein = EinsteinTensor.from_metric(metric)
-        stress_tensor = (
-            c**4
-            / (8 * np.pi * G)
-            * (t_einstein.tensor() - Cosmo_Const * metric.lower_config().tensor())
-        )
-        return cls(stress_tensor, metric.syms, config="ll", parent_metric=metric)
+        pass
 
     def change_config(self, newconfig="ul", metric=None):
         """
@@ -116,13 +110,4 @@ class StressEnergyMomentumTensor(BaseRelativityTensor):
                 lorentz transformed tensor
 
         """
-        t = super(StressEnergyMomentumTensor, self).lorentz_transform(
-            transformation_matrix
-        )
-        return StressEnergyMomentumTensor(
-            t.tensor(),
-            syms=self.syms,
-            config=self._config,
-            parent_metric=None,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass

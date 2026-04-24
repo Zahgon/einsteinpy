@@ -172,7 +172,7 @@ class Tensor:
         Returns the order of the Tensor
 
         """
-        return self._order
+        pass
 
     @property
     def config(self):
@@ -180,7 +180,7 @@ class Tensor:
         Returns the configuration of covariant and contravariant indices
 
         """
-        return self._config
+        pass
 
     def __getitem__(self, index):
         return self.arr[index]
@@ -234,7 +234,7 @@ class Tensor:
             Tensor with substituted values
 
         """
-        return Tensor(self.tensor().subs(*args))
+        pass
 
     def simplify(self, set_self=True):
         """
@@ -375,7 +375,7 @@ class BaseRelativityTensor(Tensor):
         """
         Returns the Metric from which Tensor was derived/associated, if available.
         """
-        return self._parent_metric
+        pass
 
     def symbols(self):
         """
@@ -410,16 +410,7 @@ class BaseRelativityTensor(Tensor):
                 Lambdified function which accepts and returns numerical quantities.
 
         """
-
-        if len(args) == 0:
-            numeric_arr = sympy.lambdify(
-                [*self.syms, *self.variables], self.arr, modules="numpy"
-            )
-            arg_list = (*self.syms, *self.variables)
-        else:
-            numeric_arr = sympy.lambdify(args, self.arr, modules="numpy")
-            arg_list = tuple(args)
-        return arg_list, numeric_arr
+        pass
 
     def lorentz_transform(self, transformation_matrix):
         """
@@ -436,24 +427,4 @@ class BaseRelativityTensor(Tensor):
                 lorentz transformed tensor(or vector)
 
         """
-        tm = sympy.Array(transformation_matrix)
-        t = self.tensor()
-        for i in range(self.order):
-            if self.config[i] == "u":
-                t = simplify(tensorcontraction(tensorproduct(tm, t), (1, 2 + i)))
-            else:
-                t = simplify(tensorcontraction(tensorproduct(tm, t), (0, 2 + i)))
-            dest = list(range(len(t.shape)))
-            dest.remove(0)
-            dest.insert(i, 0)
-            t = sympy.permutedims(t, dest)
-
-        return BaseRelativityTensor(
-            t,
-            syms=self.syms,
-            config=self.config,
-            parent_metric=None,
-            variables=self.variables,
-            functions=self.functions,
-            name=_change_name(self.name, context="__lt"),
-        )
+        pass
